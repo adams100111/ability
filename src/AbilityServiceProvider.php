@@ -2,9 +2,9 @@
 
 namespace EOA\Ability;
 
+use EOA\Ability\Commands\AbilityCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use EOA\Ability\Commands\AbilityCommand;
 
 class AbilityServiceProvider extends PackageServiceProvider
 {

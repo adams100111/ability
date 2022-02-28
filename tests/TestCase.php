@@ -2,9 +2,9 @@
 
 namespace EOA\Ability\Tests;
 
+use EOA\Ability\AbilityServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use EOA\Ability\AbilityServiceProvider;
 
 class TestCase extends Orchestra
 {
