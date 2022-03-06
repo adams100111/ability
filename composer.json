@@ -36,7 +36,10 @@
         "psr-4": {
             "EOA\\Ability\\": "src",
             "EOA\\Ability\\Database\\Factories\\": "database/factories"
-        }
+        },
+        "files": [
+            "helpers.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {

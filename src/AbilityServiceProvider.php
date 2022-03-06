@@ -3,11 +3,19 @@
 namespace EOA\Ability;
 
 use EOA\Ability\Commands\AbilityCommand;
+use EOA\Ability\Commands\SourceCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
 class AbilityServiceProvider extends PackageServiceProvider
 {
+    // public function register()
+    // {
+    //     $this->app->bind('ability', function($app) {
+    //         return new Ability();
+    //     });
+    // }
+
     public function configurePackage(Package $package): void
     {
         /*
@@ -20,6 +28,8 @@ class AbilityServiceProvider extends PackageServiceProvider
             ->hasConfigFile()
             ->hasViews()
             ->hasMigration('create_ability_table')
-            ->hasCommand(AbilityCommand::class);
+            ->hasCommands([AbilityCommand::class, SourceCommand::class]);
+
+        $this->app->bind('ability', fn() => new Ability());
     }
 }
