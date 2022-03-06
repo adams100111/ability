@@ -30,6 +30,6 @@ class AbilityServiceProvider extends PackageServiceProvider
             ->hasMigration('create_ability_table')
             ->hasCommands([AbilityCommand::class, SourceCommand::class]);
 
-        $this->app->bind('ability', fn() => new Ability());
+        $this->app->bind('ability', fn () => new Ability());
     }
 }

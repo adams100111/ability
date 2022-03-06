@@ -7,7 +7,7 @@ if (! function_exists('able_to')) {
      * @param  $permissions
      * @return bool
      */
-    function able_to($permissions):bool
+    function able_to($permissions): bool
     {
         return false;
     }

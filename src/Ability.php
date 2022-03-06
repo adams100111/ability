@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Config;
 
 class Ability
 {
-
     public function check($permissions)
     {
         return $permissions;
