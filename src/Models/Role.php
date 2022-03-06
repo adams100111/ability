@@ -1,4 +1,5 @@
 <?php
+
 namespace EOA\Ability\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -8,5 +9,3 @@ class Role extends Model
 {
     use HasFactory;
 }
-
-
