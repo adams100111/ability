@@ -3,6 +3,8 @@
 namespace EOA\Ability;
 
 use EOA\Ability\Commands\AbilityCommand;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -30,12 +32,28 @@ class AbilityServiceProvider extends PackageServiceProvider
             ->hasRoutes('web')
             ->hasCommands([AbilityCommand::class]);
 
-        $this->app->bind('ability', fn () => new Ability());
     }
 
     public function register()
     {
+        parent::register();
+
+        $this->app->bind('ability', fn () => new Ability());
         $this->publishResources();
+
+        Collection::macro('paginate', function($perPage = 10, $total = null, $page = null, $pageName = 'page') {
+            $page = $page ?: LengthAwarePaginator::resolveCurrentPage($pageName);
+            return new LengthAwarePaginator(
+                $this->forPage($page, $perPage),
+                $total ?: $this->count(),
+                $perPage,
+                $page,
+                [
+                    'path' => LengthAwarePaginator::resolveCurrentPath(),
+                    'pageName' => $pageName,
+                ]
+            );
+        });
     }
 
     protected function publishResources()
@@ -53,5 +71,16 @@ class AbilityServiceProvider extends PackageServiceProvider
         $this->publishes([
             __DIR__ . '/../database/seeds/AbilitySeeder.php' => database_path('seeds/AbilitySeeder.php'),
         ], 'ability-seeds');
+    }
+
+    protected function getEnvironmentSetUp($app)
+    {
+        // Setup default database to use sqlite :memory:
+        $app['config']->set('database.default', 'testbench');
+        $app['config']->set('database.connections.testbench', [
+            'driver'   => 'sqlite',
+            'database' => ':memory:',
+            'prefix'   => '',
+        ]);
     }
 }

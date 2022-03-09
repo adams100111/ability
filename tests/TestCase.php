@@ -22,6 +22,8 @@ class TestCase extends Orchestra
         return [
             AbilityServiceProvider::class,
         ];
+
+        $this->artisan('migrate', ['--database' => 'testbench'])->run();
     }
 
     public function getEnvironmentSetUp($app)
@@ -29,8 +31,15 @@ class TestCase extends Orchestra
         config()->set('database.default', 'testing');
 
         /*
-        $migration = include __DIR__.'/../database/migrations/create_ability_table.php.stub';
-        $migration->up();
+        $rolesMigration = include __DIR__.'/../database/migrations/create_roles_table.php.stub';
+        $rolesMigration->up();
+
+        $permissionsMigration = include __DIR__.'/../database/migrations/create_permissions_table.php.stub';
+        $permissionsMigration->up();
+
+        $permittablesMigration = include __DIR__.'/../database/migrations/create_permittables_table.php.stub';
+        $permittablesMigration->up();
         */
+
     }
 }

@@ -56,9 +56,7 @@
         "allow-plugins": {
             "pestphp/pest-plugin": true,
             "phpstan/extension-installer": true
-        },
-        "bin-dir": "./"
-
+        }
     },
     "extra": {
         "laravel": {
