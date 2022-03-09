@@ -11,11 +11,11 @@ class Permission
 
     public function __construct(array $params = [])
     {
-        $this->operation = $params['operation'] ?? null;
-        $this->module = $params['module'] ?? null;
-        $this->group = $params['group'] ?? null;
-
-        $this->name = $this->name();
+        $this->name = $params['name'] ?? $this->name();
+        
+        $this->module = $params['module'] ?? $this->module();
+        $this->group = $params['group'] ?? $this->group();
+        $this->operation = $params['operation'] ?? $this->operation();
     }
 
     public function name()
@@ -26,5 +26,49 @@ class Permission
         $name .= $this->operation ? "{$this->operation}" : '';
 
         return $name;
+    }
+
+    public function module()
+    {
+        if ($this->module) {
+            return $this->module;
+        }
+
+        if (count($names = explode('.', $this->name)) >= 3) {
+            return $names[0];
+        }
+    }
+
+    public function group()
+    {
+        if ($this->group) {
+            return $this->group;
+        }
+
+        if (count($names = explode('.', $this->name)) >= 3) {
+            return $names[1];
+        }
+    }
+
+    public function operation()
+    {
+        if ($this->operation) {
+            return $this->operation;
+        }
+
+        if (count($names = explode('.', $this->name)) >= 3) {
+            return $names[2];
+        }
+    }
+
+    public function withName(string $name) :Permission
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    public static function ofName(string $name) :Permission
+    {
+        return new static(compact('name'));
     }
 }

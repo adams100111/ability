@@ -17,7 +17,7 @@ class PermissionsService
 
     public function permissions()
     {
-        $path = "permissions.modules";
+        $path = "ability.permissions_structure.modules";
         $path .= $this->module ? ".{$this->module}" : "";
         $path .= $this->module && $this->group ? ".groups.{$this->group}" : "";
         $modules = config($path);
@@ -27,7 +27,7 @@ class PermissionsService
             $module = $this->module;
             $group = $this->group;
             foreach ($modules as $_operations) {
-                $operations = explode(',', $_operations);
+                $operations = exploding([',', '|'], $_operations);
                 foreach ($operations as $operation) {
                     $permissions[] = new Permission(compact('operation', 'module', 'group'));
                 }
@@ -35,23 +35,38 @@ class PermissionsService
         } elseif ($this->module && is_null($this->group)) {
             $module = $this->module;
             foreach ($modules as $group => $_operations) {
-                $operations = explode(',', $_operations);
+                $operations = exploding([',', '|'], $_operations);
                 foreach ($operations as $operation) {
                     $permissions[] = new Permission(compact('operation', 'module', 'group'));
                 }
             }
         } else {
+            $permissions = array_map(fn($permissionName) => Permission::ofName($permissionName), config("ability.permissions_structure.permissions"));
+            foreach (config("ability.permissions_structure.permissions") as $permission => $data) {
+                if (is_string($permission)) {
+                    $parts = explode('.', $permission);
+                    $operations = exploding([',', '|'], $permission);
+                    $module = $parts[0];
+                    $group = $parts[1];
+                    foreach ($operations as $operation) {
+                        $permissions[] = new Permission(compact('operation', 'module', 'group'));
+                    }
+                }else{
+                    $permissions[] = Permission::ofName($data);
+                }
+            }
+
             foreach ($modules as $module => $moduleData) {
                 $group = $this->group;
                 if ($group) {
                     $group_operations = $moduleData['groups'][$group] ?? null;
-                    $operations = $group_operations ? explode(',', $group_operations) : [];
+                    $operations = $group_operations ? exploding([',', '|'], $group_operations) : [];
                     foreach ($operations as $operation) {
                         $permissions[] = new Permission(compact('operation', 'module', 'group'));
                     }
                 } else {
                     foreach (($moduleData['groups'] ?? []) as $group => $_operations) {
-                        $operations = explode(',', $_operations);
+                        $operations = exploding([',', '|'], $_operations);
                         foreach ($operations as $operation) {
                             $permissions[] = new Permission(compact('operation', 'module', 'group'));
                         }
@@ -70,7 +85,7 @@ class PermissionsService
             $module = $parts[0];
             $group = $parts[1];
             $operation = $parts[2];
-            $operations = explode(',', (config("permissions.modules.$module.groups.$group") ?? ''));
+            $operations = exploding([',', '|'], (config("ability.permissions_structure.modules.$module.groups.$group") ?? ''));
             if (in_array($operation, $operations)) {
                 return new Permission(compact('operation', 'module', 'group'));
             }

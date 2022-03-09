@@ -38,39 +38,8 @@ class AbilityServiceProvider extends PackageServiceProvider
         parent::register();
 
         $this->app->bind('ability', fn () => new Ability());
-        $this->publishResources();
 
-        Collection::macro('paginate', function ($perPage = 10, $total = null, $page = null, $pageName = 'page') {
-            $page = $page ?: LengthAwarePaginator::resolveCurrentPage($pageName);
-
-            return new LengthAwarePaginator(
-                $this->forPage($page, $perPage),
-                $total ?: $this->count(),
-                $perPage,
-                $page,
-                [
-                    'path' => LengthAwarePaginator::resolveCurrentPath(),
-                    'pageName' => $pageName,
-                ]
-            );
-        });
-    }
-
-    protected function publishResources()
-    {
-        $this->publishes([
-            __DIR__ . '/../config/ability.php' => config_path('ability.php'),
-        ], 'ability-config');
-
-        $this->publishes([
-            __DIR__ . '/../database/migrations/create_roles_table.php' => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_roles_table.php'),
-            __DIR__ . '/../database/migrations/create_permissions_table.php' => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_permissions_table.php'),
-            __DIR__ . '/../database/migrations/create_permittables_table.php' => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_permittables_table.php'),
-        ], 'ability-migrations');
-
-        $this->publishes([
-            __DIR__ . '/../database/seeds/AbilitySeeder.php' => database_path('seeds/AbilitySeeder.php'),
-        ], 'ability-seeds');
+        $this->app->register(AbilitySourceServiceProvider::class);
     }
 
     protected function getEnvironmentSetUp($app)

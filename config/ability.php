@@ -12,11 +12,14 @@ return [
     | this sources [config file, database table].
     |
     */
-    'source' => 'config',
+    'source' => 'file',
 
     'permissions_structure' => [
         'permissions' => [
-            'global.attachments' => 'create|read|update|delete|print',
+            'global.attachments.create',
+            'global.attachments.read',
+            'global.attachments.update',
+            'global.attachments.delete',
             'global.procedures.create',
             'global.procedures.read',
             'global.procedures.update',
@@ -24,13 +27,17 @@ return [
         ],
         'modules' => [
             'auth' => [
-                'users' => 'create|read|update|delete|print',
-                'roles' => 'create|read|update|delete|print',
+                'groups' => [
+                    'users' => 'create|read|update|delete|print',
+                    'roles' => 'create|read|update|delete|print',
+                ]
             ],
             'accounting' => [
-                'accounts' => 'create|read|update|delete|print',
-                'years' => 'create|read|update|delete|print',
-                'entries' => 'create|read|update|delete|print',
+                'groups' => [
+                    'accounts' => 'create|read|update|delete|print',
+                    'years' => 'create|read|update|delete|print',
+                    'entries' => 'create|read|update|delete|print',
+                ]
             ]
         ],
     ],
