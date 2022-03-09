@@ -3,8 +3,6 @@
 namespace EOA\Ability;
 
 use EOA\Ability\Commands\AbilityCommand;
-use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Collection;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 

@@ -1,4 +1,5 @@
 <?php
+
 namespace EOA\Ability\Traits;
 
 use EOA\Ability\Models\Permission;
@@ -21,7 +22,9 @@ trait HasPermissions
 
     public function getRolesModels()
     {
-        return collect(array_map(function($role){ return Role::ofName($role); }, $this->roles));
+        return collect(array_map(function ($role) {
+            return Role::ofName($role);
+        }, $this->roles));
     }
 
     public function getAllPermissions()
@@ -39,7 +42,6 @@ trait HasPermissions
     {
         return $roles ? (array) json_decode($roles) : [];
     }
-
 
     public function setRolesAttribute($roles)
     {
@@ -59,7 +61,7 @@ trait HasPermissions
 
     public function addRole($role)
     {
-        if (!$this->hasRole($role)) {
+        if (! $this->hasRole($role)) {
             if (is_model($role)) {
                 $roleName = $role->name;
             } else {
@@ -81,8 +83,7 @@ trait HasPermissions
         $separator = $options['separator'] ?? '|';
         if (is_array($permissions)) {
             $_permissions = $permissions;
-        }
-        elseif (is_string($permissions)) {
+        } elseif (is_string($permissions)) {
             $_permissions = explode($separator, $permissions);
         } else {
             $_permissions = [];
@@ -93,19 +94,20 @@ trait HasPermissions
         } else {
             return count(array_intersect($_permissions, $allPermissions)) === count($_permissions);
         }
-
     }
 
     public function removeRole($role)
     {
-        if (!$this->hasRole($role)) {
+        if (! $this->hasRole($role)) {
             if (is_model($role)) {
                 $roleName = $role->name;
             } else {
                 $roleName = $role;
             }
 
-            $roles = array_filter($this->roles, function($role)use($roleName){ return $role != $roleName; });
+            $roles = array_filter($this->roles, function ($role) use ($roleName) {
+                return $role != $roleName;
+            });
 
             return $this->update(['roles' => $roles]);
         }
@@ -114,19 +116,21 @@ trait HasPermissions
     public function hasPermission($permission)
     {
         $permissions = $this->permissions;
+
         return $permissions ? $permissions->hasPermission($permission) : null;
     }
 
     public function addPermission($permission)
     {
         $permissions = $this->permissions ?? $this->permissions()->create();
+
         return $permissions->addPermission($permission);
     }
 
     public function removePermission($permission)
     {
         $permissions = $this->permissions;
+
         return $permissions ? $permissions->removePermission($permission) : null;
     }
 }
-

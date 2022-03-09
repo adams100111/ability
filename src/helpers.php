@@ -16,8 +16,7 @@ if (! function_exists('able_to')) {
 }
 
 
-if (!function_exists('is_model'))
-{
+if (! function_exists('is_model')) {
     /**
      * Determine if an object or class is elquant model.
      *

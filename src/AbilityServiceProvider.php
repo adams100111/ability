@@ -31,7 +31,6 @@ class AbilityServiceProvider extends PackageServiceProvider
             // ->hasMigration('create_ability_table')
             ->hasRoutes('web')
             ->hasCommands([AbilityCommand::class]);
-
     }
 
     public function register()
@@ -41,8 +40,9 @@ class AbilityServiceProvider extends PackageServiceProvider
         $this->app->bind('ability', fn () => new Ability());
         $this->publishResources();
 
-        Collection::macro('paginate', function($perPage = 10, $total = null, $page = null, $pageName = 'page') {
+        Collection::macro('paginate', function ($perPage = 10, $total = null, $page = null, $pageName = 'page') {
             $page = $page ?: LengthAwarePaginator::resolveCurrentPage($pageName);
+
             return new LengthAwarePaginator(
                 $this->forPage($page, $perPage),
                 $total ?: $this->count(),
@@ -78,9 +78,9 @@ class AbilityServiceProvider extends PackageServiceProvider
         // Setup default database to use sqlite :memory:
         $app['config']->set('database.default', 'testbench');
         $app['config']->set('database.connections.testbench', [
-            'driver'   => 'sqlite',
+            'driver' => 'sqlite',
             'database' => ':memory:',
-            'prefix'   => '',
+            'prefix' => '',
         ]);
     }
 }

@@ -40,6 +40,5 @@ class TestCase extends Orchestra
         $permittablesMigration = include __DIR__.'/../database/migrations/create_permittables_table.php.stub';
         $permittablesMigration->up();
         */
-
     }
 }

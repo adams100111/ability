@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Permittable extends Model
 {
-    use HasFactory; protected $fillable = ['permissions','permissible_type','permissible_id'];
+    use HasFactory;
+    protected $fillable = ['permissions','permissible_type','permissible_id'];
 
     public function permissible()
     {
@@ -26,13 +27,12 @@ class Permittable extends Model
 
     public function hasPermission($permission)
     {
-
         return in_array($permission, $this->permissions);
     }
 
     public function addPermission($permission)
     {
-        if (!$this->hasPermission($permission)) {
+        if (! $this->hasPermission($permission)) {
             $permissions = $this->permissions;
             $permissions[] = $permission;
 
@@ -43,7 +43,9 @@ class Permittable extends Model
     public function removePermission($permission)
     {
         if ($this->hasPermission($permission)) {
-            $permissions = array_filter($this->permissions, function($p)use($permission){ return $p != $permission; });
+            $permissions = array_filter($this->permissions, function ($p) use ($permission) {
+                return $p != $permission;
+            });
 
             return $this->update(['permissions' => $permissions]);
         }
@@ -54,7 +56,6 @@ class Permittable extends Model
     {
         return $permissions ? (array) json_decode($permissions) : [];
     }
-
 
     public function setPermissionsAttribute($permissions)
     {

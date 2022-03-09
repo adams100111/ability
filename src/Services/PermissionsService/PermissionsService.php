@@ -1,4 +1,5 @@
 <?php
+
 namespace EOA\Ability\Services\PermissionsService;
 
 use EOA\Ability\Services\PermissionsService\Entities\Permission;
@@ -31,7 +32,7 @@ class PermissionsService
                     $permissions[] = new Permission(compact('operation', 'module', 'group'));
                 }
             }
-        } else if ($this->module && is_null($this->group)) {
+        } elseif ($this->module && is_null($this->group)) {
             $module = $this->module;
             foreach ($modules as $group => $_operations) {
                 $operations = explode(',', $_operations);
@@ -76,4 +77,3 @@ class PermissionsService
         }
     }
 }
-

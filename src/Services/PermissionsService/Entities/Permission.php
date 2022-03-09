@@ -1,4 +1,5 @@
 <?php
+
 namespace EOA\Ability\Services\PermissionsService\Entities;
 
 class Permission
@@ -23,7 +24,7 @@ class Permission
         $name .= $this->module ? "{$this->module}." : '';
         $name .= $this->group ? "{$this->group}." : '';
         $name .= $this->operation ? "{$this->operation}" : '';
+
         return $name;
     }
 }
-
