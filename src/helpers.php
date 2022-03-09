@@ -43,13 +43,12 @@ if (! function_exists('exploding')) {
         $array = [];
         if (is_string($separators)) {
             $array = explode($separators, $string);
-        }
-
-        elseif (is_array($separators)) {
+        } elseif (is_array($separators)) {
             foreach ($separators as $separator) {
                 $array = array_merge($array, exploding($separator, $string));
             }
         }
-        return array_filter($array, fn($str) => !(empty($str) || $str == $string));
+
+        return array_filter($array, fn ($str) => ! (empty($str) || $str == $string));
     }
 }

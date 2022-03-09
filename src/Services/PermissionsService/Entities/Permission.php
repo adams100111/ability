@@ -12,7 +12,7 @@ class Permission
     public function __construct(array $params = [])
     {
         $this->name = $params['name'] ?? $this->name();
-        
+
         $this->module = $params['module'] ?? $this->module();
         $this->group = $params['group'] ?? $this->group();
         $this->operation = $params['operation'] ?? $this->operation();
@@ -61,13 +61,14 @@ class Permission
         }
     }
 
-    public function withName(string $name) :Permission
+    public function withName(string $name): Permission
     {
         $this->name = $name;
+
         return $this;
     }
 
-    public static function ofName(string $name) :Permission
+    public static function ofName(string $name): Permission
     {
         return new static(compact('name'));
     }

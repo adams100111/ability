@@ -41,7 +41,7 @@ class PermissionsService
                 }
             }
         } else {
-            $permissions = array_map(fn($permissionName) => Permission::ofName($permissionName), config("ability.permissions_structure.permissions"));
+            $permissions = array_map(fn ($permissionName) => Permission::ofName($permissionName), config("ability.permissions_structure.permissions"));
             foreach (config("ability.permissions_structure.permissions") as $permission => $data) {
                 if (is_string($permission)) {
                     $parts = explode('.', $permission);
@@ -51,7 +51,7 @@ class PermissionsService
                     foreach ($operations as $operation) {
                         $permissions[] = new Permission(compact('operation', 'module', 'group'));
                     }
-                }else{
+                } else {
                     $permissions[] = Permission::ofName($data);
                 }
             }

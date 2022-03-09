@@ -8,7 +8,8 @@ use Illuminate\Support\ServiceProvider;
 
 class AbilitySourceServiceProvider extends ServiceProvider
 {
-    public function boot(){
+    public function boot()
+    {
         Collection::macro('paginate', function ($perPage = 10, $total = null, $page = null, $pageName = 'page') {
             $page = $page ?: LengthAwarePaginator::resolveCurrentPage($pageName);
 
