@@ -29,7 +29,9 @@ class PermissionsService
                 'module' => $permission->module,
             ]);
 
-            if($permission) $databasePermissions->add($permission);
+            if ($permission) {
+                $databasePermissions->add($permission);
+            }
         }
 
         return $databasePermissions;
