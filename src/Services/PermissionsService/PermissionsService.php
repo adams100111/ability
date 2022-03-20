@@ -2,6 +2,7 @@
 
 namespace EOA\Ability\Services\PermissionsService;
 
+use EOA\Ability\Models\Permission as PermissionModel;
 use EOA\Ability\Services\PermissionsService\Entities\Permission;
 
 class PermissionsService
@@ -13,6 +14,25 @@ class PermissionsService
     {
         $this->module = $params['module'] ?? null;
         $this->group = $params['group'] ?? null;
+    }
+
+    public function loadPermissionsFromLocal()
+    {
+        $localPermissions = $this->permissions();
+        $databasePermissions = collect();
+        foreach ($localPermissions as $permission) {
+            $permission = PermissionModel::firstOrCreate([
+                'name' => $permission->name,
+                'display_name' => $permission->displayName(),
+                'operation' => $permission->operation,
+                'group' => $permission->group,
+                'module' => $permission->module,
+            ]);
+
+            if($permission) $databasePermissions->add($permission);
+        }
+
+        return $databasePermissions;
     }
 
     public function permissions()

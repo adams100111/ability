@@ -61,6 +61,11 @@ class Permission
         }
     }
 
+    public function displayName()
+    {
+        return $this->name();
+    }
+
     public function withName(string $name): Permission
     {
         $this->name = $name;
