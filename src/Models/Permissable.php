@@ -6,7 +6,7 @@ use EOA\Ability\Services\PermissionsService\PermissionsService;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Permittable extends Model
+class Permissable extends Model
 {
     use HasFactory;
     protected $fillable = ['permissions','permissible_type','permissible_id'];

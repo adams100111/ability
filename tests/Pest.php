@@ -4,8 +4,8 @@ use EOA\Ability\Tests\TestCase;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-uses(RefreshDatabase::class);
 uses(TestCase::class)->in(__DIR__);
+uses(RefreshDatabase::class);
 
 
 /**

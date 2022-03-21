@@ -28,17 +28,22 @@ class TestCase extends Orchestra
 
     public function getEnvironmentSetUp($app)
     {
-        config()->set('database.default', 'testing');
+        // config()->set('database.default', 'testing');
+        $app['config']->set('database.default', 'testbench');
+        $app['config']->set('database.connections.testbench', [
+            'driver' => 'sqlite',
+            'database' => ':memory:',
+            'prefix' => '',
+        ]);
 
-        /*
         $rolesMigration = include __DIR__.'/../database/migrations/create_roles_table.php.stub';
         $rolesMigration->up();
 
         $permissionsMigration = include __DIR__.'/../database/migrations/create_permissions_table.php.stub';
         $permissionsMigration->up();
 
-        $permittablesMigration = include __DIR__.'/../database/migrations/create_permittables_table.php.stub';
-        $permittablesMigration->up();
-        */
+        $permissiblesMigration = include __DIR__.'/../database/migrations/create_permissibles_table.php.stub';
+        $permissiblesMigration->up();
+        /**/
     }
 }

@@ -8,13 +8,6 @@ use Spatie\LaravelPackageTools\PackageServiceProvider;
 
 class AbilityServiceProvider extends PackageServiceProvider
 {
-    // public function register()
-    // {
-    //     $this->app->bind('ability', function($app) {
-    //         return new Ability();
-    //     });
-    // }
-
     public function configurePackage(Package $package): void
     {
         /*

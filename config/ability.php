@@ -14,6 +14,12 @@ return [
     */
     'source' => 'file',
 
+    'models' => [
+        'role' => \EOA\Ability\Models\Role::class,
+        'permission' => \EOA\Ability\Models\Permission::class,
+        'permissible' => \EOA\Ability\Models\Permissible::class,
+    ],
+
     'permissions_structure' => [
         'permissions' => [
             'global.attachments.create',
