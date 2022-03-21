@@ -3,6 +3,7 @@
 namespace EOA\Ability;
 
 use EOA\Ability\Commands\AbilityCommand;
+use EOA\Ability\Commands\DatabaseLoadCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -21,7 +22,7 @@ class AbilityServiceProvider extends PackageServiceProvider
             ->hasViews()
             // ->hasMigration('create_ability_table')
             ->hasRoutes('web')
-            ->hasCommands([AbilityCommand::class]);
+            ->hasCommands(AbilityCommand::class, DatabaseLoadCommand::class);
     }
 
     public function register()
