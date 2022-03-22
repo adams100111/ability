@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('permissibles_table', function (Blueprint $table) {
+        Schema::create('permissibles', function (Blueprint $table) {
             $table->id();
             $table->json('permissions');
             $table->string('permissible_id')->nullable();

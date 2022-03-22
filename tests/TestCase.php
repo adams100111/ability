@@ -15,6 +15,8 @@ class TestCase extends Orchestra
         Factory::guessFactoryNamesUsing(
             fn (string $modelName) => 'EOA\\Ability\\Database\\Factories\\'.class_basename($modelName).'Factory'
         );
+
+        // $this->getEnvironmentSetUp($this->app);
     }
 
     protected function getPackageProviders($app)
@@ -23,18 +25,12 @@ class TestCase extends Orchestra
             AbilityServiceProvider::class,
         ];
 
-        $this->artisan('migrate', ['--database' => 'testbench'])->run();
+        $this->artisan('migrate:fresh', ['--database' => 'testbench'])->run();
     }
 
     public function getEnvironmentSetUp($app)
     {
-        // config()->set('database.default', 'testing');
-        $app['config']->set('database.default', 'testbench');
-        $app['config']->set('database.connections.testbench', [
-            'driver' => 'sqlite',
-            'database' => ':memory:',
-            'prefix' => '',
-        ]);
+        config()->set('database.default', 'testing');
 
         $rolesMigration = include __DIR__.'/../database/migrations/create_roles_table.php.stub';
         $rolesMigration->up();

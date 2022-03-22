@@ -22,11 +22,11 @@ class PermissionsService
         $databasePermissions = collect();
         foreach ($localPermissions as $permission) {
             $permission = PermissionModel::firstOrCreate([
-                'name' => $permission->name,
+                'name' => $permission->name(),
                 'display_name' => $permission->displayName(),
-                'operation' => $permission->operation,
-                'group' => $permission->group,
-                'module' => $permission->module,
+                // 'operation' => $permission->operation,
+                // 'group' => $permission->group,
+                // 'module' => $permission->module,
             ]);
 
             if ($permission) {
