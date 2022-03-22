@@ -20,6 +20,7 @@ class DatabaseLoadCommand extends Command
             $permissionsService->loadPermissionsFromLocal();
             Log::info("Permissions loaded from local to database");
         }
+
         return self::SUCCESS;
     }
 }

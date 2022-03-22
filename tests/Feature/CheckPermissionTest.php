@@ -1,6 +1,5 @@
 <?php
 
-use EOA\Ability\Facades\Ability;
 use EOA\Ability\Models\Permission;
 use EOA\Ability\Models\Role;
 use EOA\Ability\Services\PermissionsService\PermissionsService;
