@@ -1,4 +1,5 @@
 <?php
+
 namespace EOA\Ability\Models;
 
 use App\Traits\Uuids;
@@ -8,5 +9,3 @@ class UniqueModel extends Model
 {
     use Uuids;
 }
-
-

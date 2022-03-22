@@ -13,4 +13,3 @@ it('can check permission', function () {
     Artisan::call("ability:load");
     expect(Permission::count())->toBe($localPermissions->count());
 })->group('permissions');
-
